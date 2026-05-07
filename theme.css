@@ -1,0 +1,73 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.9842 0.0034 247.8575);
+  --foreground: oklch(0.2795 0.0368 260.0310);
+  --card: oklch(1 0 0);
+  --muted-foreground: oklch(0.5510 0.0234 264.3637);
+  --border: oklch(0.8717 0.0093 258.3382);
+}
+
+.dark {
+  --background: oklch(0.2077 0.0398 265.7549);
+  --foreground: oklch(0.9288 0.0126 255.5078);
+  --card: oklch(0.2795 0.0368 260.0310);
+  --muted-foreground: oklch(0.7137 0.0192 261.3246);
+  --border: oklch(0.4461 0.0263 256.8018);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-none;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.flashcard-shell {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  transform-style: preserve-3d;
+  transition: transform 320ms ease;
+}
+
+.flashcard-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  backface-visibility: hidden;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: var(--card);
+}
+
+.flashcard-back {
+  background: var(--card);
+  transform: rotateY(180deg);
+}
